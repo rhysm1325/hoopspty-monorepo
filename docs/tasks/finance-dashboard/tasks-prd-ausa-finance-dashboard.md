@@ -60,6 +60,13 @@
 - `components/dashboard/aging-analysis-tile.tsx` - AR/AP aging analysis with visual buckets
 - `components/dashboard/profitability-tiles.tsx` - Gross margin and net profit analysis with trends
 - `components/dashboard/working-capital-tiles.tsx` - DSO, DPO, and cash conversion cycle analysis
+- `components/dashboard/tours-deferred-revenue.tsx` - Tours deferred revenue tracking and recognition
+- `components/dashboard/tours-ar-table.tsx` - Tours AR table with customer contact integration
+- `components/dashboard/dr-dish-unit-sales.tsx` - Dr Dish unit sales tracking and ASP analysis
+- `components/dashboard/dr-dish-margin-analysis.tsx` - Dr Dish gross margin analysis by product model
+- `components/dashboard/dr-dish-inventory-management.tsx` - Dr Dish inventory management with turns and stock levels
+- `components/dashboard/marketing-invoice-tracking.tsx` - Marketing invoice status and payment tracking
+- `components/dashboard/revenue-stream-filter.tsx` - Universal revenue stream filtering and drill-down
 - `components/charts/revenue-comparison-chart.tsx` - YTD vs prior year revenue chart with week-based comparison
 - `components/charts/revenue-comparison-chart.test.tsx` - Unit tests for revenue chart
 - `components/dashboard/aging-analysis-tile.test.tsx` - Unit tests for aging analysis
@@ -67,9 +74,9 @@
 ### Dashboard Pages
 - `app/(dashboard)/layout.tsx` - Dashboard layout with navigation
 - `app/(dashboard)/page.tsx` - Executive dashboard (default landing)
-- `app/(dashboard)/tours/page.tsx` - Tours revenue dashboard
-- `app/(dashboard)/dr-dish/page.tsx` - Dr Dish distribution dashboard
-- `app/(dashboard)/marketing/page.tsx` - Marketing revenue dashboard
+- `app/(dashboard)/tours/page.tsx` - Tours revenue dashboard with seasonal analysis
+- `app/(dashboard)/dr-dish/page.tsx` - Dr Dish distribution dashboard with inventory focus
+- `app/(dashboard)/marketing/page.tsx` - Marketing revenue dashboard with Rebel Sport tracking
 - `app/(dashboard)/ar/page.tsx` - Accounts Receivable detail page
 - `app/(dashboard)/ap/page.tsx` - Accounts Payable detail page
 - `app/(dashboard)/settings/page.tsx` - Admin settings and configuration
@@ -191,17 +198,17 @@
   - [x] 7.9 Add overdue suppliers table with payment prioritization
   - [x] 7.10 Implement insight callouts for significant variances and alerts
 
-- [ ] 8.0 Revenue Stream Dashboards (Tours, Dr Dish, Marketing)
-  - [ ] 8.1 Create Tours dashboard with seasonal revenue analysis
-  - [ ] 8.2 Build Tours deferred revenue tracking and recognition views
-  - [ ] 8.3 Implement Tours AR table with customer contact integration
-  - [ ] 8.4 Create Dr Dish distribution dashboard with inventory focus
-  - [ ] 8.5 Build Dr Dish unit sales tracking and ASP analysis
-  - [ ] 8.6 Implement Dr Dish gross margin analysis by product model
-  - [ ] 8.7 Create Dr Dish inventory management with turns and stock levels
-  - [ ] 8.8 Build Marketing revenue dashboard for Rebel Sport tracking
-  - [ ] 8.9 Implement Marketing invoice status and payment tracking
-  - [ ] 8.10 Add revenue stream filtering and drill-down capabilities
+- [x] 8.0 Revenue Stream Dashboards (Tours, Dr Dish, Marketing)
+  - [x] 8.1 Create Tours dashboard with seasonal revenue analysis
+  - [x] 8.2 Build Tours deferred revenue tracking and recognition views
+  - [x] 8.3 Implement Tours AR table with customer contact integration
+  - [x] 8.4 Create Dr Dish distribution dashboard with inventory focus
+  - [x] 8.5 Build Dr Dish unit sales tracking and ASP analysis
+  - [x] 8.6 Implement Dr Dish gross margin analysis by product model
+  - [x] 8.7 Create Dr Dish inventory management with turns and stock levels
+  - [x] 8.8 Build Marketing revenue dashboard for Rebel Sport tracking
+  - [x] 8.9 Implement Marketing invoice status and payment tracking
+  - [x] 8.10 Add revenue stream filtering and drill-down capabilities
 
 - [ ] 9.0 Detail Pages & Data Export
   - [ ] 9.1 Create AR detail page with advanced filtering and search

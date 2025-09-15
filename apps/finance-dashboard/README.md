@@ -1,6 +1,20 @@
 # AUSA Finance Dashboard
 
-A secure internal web application for AUSA Hoops Pty Ltd that integrates with Xero accounting data to provide real-time financial insights and analytics.
+**Part of the HoopsPty Monorepo** - A secure internal web application for AUSA Hoops Pty Ltd that integrates with Xero accounting data to provide real-time financial insights and analytics.
+
+## 🏗️ Monorepo Context
+
+This application is part of the larger HoopsPty monorepo located at the repository root. If you're new to the project:
+
+1. **Read the main README**: `../../README.md`
+2. **Follow the onboarding guide**: `../../docs/DEVELOPER_ONBOARDING.md`
+3. **Understand the monorepo structure** before making changes
+
+## 🚀 Live Application
+
+**Production URL**: https://ausa-finance-dashboard-88j3n71j3-rhys-murphys-projects.vercel.app
+
+The application is deployed independently to Vercel while being part of the monorepo structure.
 
 ## 🏀 About AUSA Hoops
 

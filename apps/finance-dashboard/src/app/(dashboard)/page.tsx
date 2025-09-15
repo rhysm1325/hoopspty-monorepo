@@ -19,6 +19,7 @@ import { CashFlowTrendChart } from '@/components/charts/cash-flow-trend-chart'
 import { OverdueCustomersTable } from '@/components/dashboard/overdue-customers-table'
 import { OverdueSuppliersTable } from '@/components/dashboard/overdue-suppliers-table'
 import { InsightsAlerts } from '@/components/dashboard/insights-alerts'
+import { RevenueStreamFilter } from '@/components/dashboard/revenue-stream-filter'
 import {
   TrendingUp,
   TrendingDown,
@@ -380,6 +381,24 @@ export default function ExecutiveDashboard() {
           </button>
         </div>
       </div>
+
+      {/* Revenue Stream Filtering and Drill-Down */}
+      <RevenueStreamFilter 
+        currentRevenueStream="all"
+        showDrillDown={true}
+        onRevenueStreamChange={(stream) => {
+          console.log('Revenue stream changed to:', stream)
+          // Handle revenue stream filter change
+        }}
+        onFiltersChange={(filters) => {
+          console.log('Filters changed:', filters)
+          // Handle filter changes
+        }}
+        onDrillDown={(level) => {
+          console.log('Drill down to level:', level)
+          // Handle drill-down navigation
+        }}
+      />
 
       {/* Critical Insights and Alerts */}
       <InsightsAlerts showExpanded={true} maxInsights={3} className="mb-6" />

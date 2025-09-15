@@ -18,6 +18,10 @@
       ],
       "env": {
         "SUPABASE_ACCESS_TOKEN": "sbp_ac3106397d2748bbd358f9732aa26dd1817f3588"
+      },
+      "AUSA Hoops Notion": {
+        "url": "https://mcp.notion.com/mcp",
+        "headers": {}
       }
     }
   }
