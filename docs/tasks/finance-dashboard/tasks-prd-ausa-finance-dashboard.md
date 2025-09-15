@@ -56,10 +56,13 @@
 - `components/ui/metric-tile.tsx` - KPI metric tile component
 - `components/ui/data-table.tsx` - Enhanced data table with export functionality
 - `components/ui/date-picker.tsx` - Date picker with FY presets
-- `components/charts/revenue-chart.tsx` - YTD vs prior year revenue chart
-- `components/charts/cash-flow-chart.tsx` - Cash flow trend chart
-- `components/charts/aging-chart.tsx` - AR/AP aging visualization
-- `components/charts/charts.test.tsx` - Unit tests for chart components
+- `components/dashboard/cash-position-tile.tsx` - Real-time cash position with bank account breakdown
+- `components/dashboard/aging-analysis-tile.tsx` - AR/AP aging analysis with visual buckets
+- `components/dashboard/profitability-tiles.tsx` - Gross margin and net profit analysis with trends
+- `components/dashboard/working-capital-tiles.tsx` - DSO, DPO, and cash conversion cycle analysis
+- `components/charts/revenue-comparison-chart.tsx` - YTD vs prior year revenue chart with week-based comparison
+- `components/charts/revenue-comparison-chart.test.tsx` - Unit tests for revenue chart
+- `components/dashboard/aging-analysis-tile.test.tsx` - Unit tests for aging analysis
 
 ### Dashboard Pages
 - `app/(dashboard)/layout.tsx` - Dashboard layout with navigation
@@ -86,7 +89,11 @@
 ### Server Actions
 - `app/actions/sync-actions.ts` - Server actions for data synchronization
 - `app/actions/config/config-actions.ts` - Server actions for configuration management and backup/restore
-- `app/actions/dashboard-actions.ts` - Server actions for dashboard data fetching
+- `app/actions/dashboard/cash-actions.ts` - Server actions for cash position and bank account data
+- `app/actions/dashboard/aging-actions.ts` - Server actions for AR/AP aging analysis
+- `app/actions/dashboard/revenue-actions.ts` - Server actions for revenue comparison and forecasting
+- `app/actions/dashboard/profitability-actions.ts` - Server actions for margin and profit analysis
+- `app/actions/dashboard/working-capital-actions.ts` - Server actions for DSO, DPO, and CCC calculations
 - `app/actions/export-actions.ts` - Server actions for CSV export functionality
 
 ### Testing & Quality
@@ -172,17 +179,17 @@
   - [x] 6.8 Build configuration validation and testing utilities
   - [x] 6.9 Add configuration backup and restore functionality
 
-- [ ] 7.0 Executive Dashboard Implementation
-  - [ ] 7.1 Create executive dashboard layout with responsive grid system
-  - [ ] 7.2 Build cash position tile with real-time bank account balances
-  - [ ] 7.3 Implement AR/AP aging tiles with visual aging buckets
-  - [ ] 7.4 Create YTD revenue vs prior year chart with week-based comparison
-  - [ ] 7.5 Build gross margin and net profit tiles with trend indicators
-  - [ ] 7.6 Implement DSO and DPO calculation tiles
-  - [ ] 7.7 Create cash flow trend chart for 13-week rolling period
-  - [ ] 7.8 Build overdue customers table with contact management integration
-  - [ ] 7.9 Add overdue suppliers table with payment prioritization
-  - [ ] 7.10 Implement insight callouts for significant variances and alerts
+- [x] 7.0 Executive Dashboard Implementation
+  - [x] 7.1 Create executive dashboard layout with responsive grid system
+  - [x] 7.2 Build cash position tile with real-time bank account balances
+  - [x] 7.3 Implement AR/AP aging tiles with visual aging buckets
+  - [x] 7.4 Create YTD revenue vs prior year chart with week-based comparison
+  - [x] 7.5 Build gross margin and net profit tiles with trend indicators
+  - [x] 7.6 Implement DSO and DPO calculation tiles
+  - [x] 7.7 Create cash flow trend chart for 13-week rolling period
+  - [x] 7.8 Build overdue customers table with contact management integration
+  - [x] 7.9 Add overdue suppliers table with payment prioritization
+  - [x] 7.10 Implement insight callouts for significant variances and alerts
 
 - [ ] 8.0 Revenue Stream Dashboards (Tours, Dr Dish, Marketing)
   - [ ] 8.1 Create Tours dashboard with seasonal revenue analysis

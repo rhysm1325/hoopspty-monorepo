@@ -1,7 +1,7 @@
 // Business rules and configuration management utilities
 
 import {
-  createServerSupabaseClient,
+  createServiceRoleClient,
   createServiceRoleClient,
 } from '@/lib/supabase/server'
 import type { Json } from '@/types/database'
@@ -55,7 +55,7 @@ export async function getBusinessRule(
   error?: string
 }> {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = createServiceRoleClient()
 
     const { data, error } = await supabase.rpc('get_effective_business_rule', {
       rule_name_param: ruleName,
@@ -133,7 +133,7 @@ export async function getRevenueStreamForAccount(accountCode: string): Promise<{
   error?: string
 }> {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = createServiceRoleClient()
 
     const { data, error } = await supabase.rpc(
       'get_revenue_stream_for_account',
@@ -165,7 +165,7 @@ export async function getAlertThreshold(thresholdName: string): Promise<{
   error?: string
 }> {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = createServiceRoleClient()
 
     const { data, error } = await supabase.rpc('get_alert_threshold', {
       threshold_name: thresholdName,
@@ -244,7 +244,7 @@ export async function getActiveSystemAlerts(severity?: string): Promise<{
   error?: string
 }> {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = createServiceRoleClient()
 
     let query = supabase
       .from('system_alerts')
@@ -332,7 +332,7 @@ export async function getUserPreferences(userId: string): Promise<{
   error?: string
 }> {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = createServiceRoleClient()
 
     const { data, error } = await supabase
       .from('user_dashboard_preferences')
@@ -372,7 +372,7 @@ export async function setUserPreference(
   error?: string
 }> {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = createServiceRoleClient()
 
     const { error } = await supabase.from('user_dashboard_preferences').upsert(
       {
@@ -416,7 +416,7 @@ export async function getConfigurationSummary(): Promise<{
   error?: string
 }> {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = createServiceRoleClient()
 
     // Get configuration summary
     const { data: configSummary, error: configError } = await supabase

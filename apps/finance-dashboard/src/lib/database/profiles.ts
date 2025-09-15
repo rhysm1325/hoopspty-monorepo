@@ -1,7 +1,7 @@
 // Database utilities for user profiles
 
 import {
-  createServerSupabaseClient,
+  createServiceRoleClient,
   createServiceRoleClient,
 } from '@/lib/supabase/server'
 import type {
@@ -20,7 +20,7 @@ export async function getUserProfile(userId: string): Promise<{
   error?: string
 }> {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = createServiceRoleClient()
 
     const { data, error } = await supabase
       .from('profiles')
@@ -50,7 +50,7 @@ export async function getUserProfileWithStats(userId: string): Promise<{
   error?: string
 }> {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = createServiceRoleClient()
 
     const { data, error } = await supabase
       .from('user_profiles_with_stats')

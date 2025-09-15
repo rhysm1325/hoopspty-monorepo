@@ -6,11 +6,18 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase/server'
-import { XeroOAuth } from '@/lib/xero/oauth'
 
 export async function POST(request: NextRequest) {
   try {
+    // Skip during build process
+    if (process.env.VERCEL_ENV || process.env.CI) {
+      return NextResponse.json({ error: 'Service not available during build' }, { status: 503 })
+    }
+
+    // Dynamic imports to avoid build-time issues
+    const { createServerClient } = await import('@/lib/supabase/server')
+    const { XeroOAuth } = await import('@/lib/xero/oauth')
+
     const supabase = createServerClient()
     
     // Check authentication

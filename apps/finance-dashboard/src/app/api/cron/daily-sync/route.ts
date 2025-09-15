@@ -8,16 +8,17 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server'
-import { XeroSync } from '@/lib/xero/sync'
-import { XeroOAuth } from '@/lib/xero/oauth'
-import { createServerClient } from '@/lib/supabase/server'
-import { config } from '@/lib/env'
 
 export async function POST(request: NextRequest) {
   try {
+    // Skip during build process
+    if (process.env.VERCEL_ENV || process.env.CI) {
+      return NextResponse.json({ error: 'Service not available during build' }, { status: 503 })
+    }
+
     // Verify cron secret for security
     const authHeader = request.headers.get('authorization')
-    const cronSecret = config.security.cronSecret
+    const cronSecret = process.env.CRON_SECRET
 
     if (!authHeader || !cronSecret) {
       return NextResponse.json(
@@ -35,6 +36,11 @@ export async function POST(request: NextRequest) {
     }
 
     console.log('Daily sync cron job started at:', new Date().toISOString())
+
+    // Dynamic imports to avoid build-time issues
+    const { createServerClient } = await import('@/lib/supabase/server')
+    const { XeroOAuth } = await import('@/lib/xero/oauth')
+    const { XeroSync } = await import('@/lib/xero/sync')
 
     const supabase = createServerClient()
     

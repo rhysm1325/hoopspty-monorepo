@@ -5,7 +5,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import {
-  createServerSupabaseClient,
+  createServerClient,
   createServiceRoleClient,
 } from '@/lib/supabase/server'
 import { getCurrentUser } from '@/lib/auth/auth'
@@ -352,7 +352,7 @@ export async function loginAction(formData: FormData) {
       return { success: false, error: 'Email and password are required' }
     }
 
-    const supabase = createServerSupabaseClient()
+    const supabase = createServerClient()
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email,

@@ -1,7 +1,6 @@
 // Database utilities for configuration management
 
 import {
-  createServerSupabaseClient,
   createServiceRoleClient,
 } from '@/lib/supabase/server'
 import type {
@@ -32,7 +31,7 @@ export async function getConfigValue<T = Json>(
   error?: string
 }> {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = createServiceRoleClient()
 
     const { data, error } = await supabase
       .from('config_mappings')
@@ -109,7 +108,7 @@ export async function getConfigsByType(type: ConfigType): Promise<{
   error?: string
 }> {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = createServiceRoleClient()
 
     const { data, error } = await supabase
       .from('config_mappings')

@@ -1,7 +1,7 @@
 // Authentication utilities for AUSA Finance Dashboard
 
 import type { User as SupabaseUser } from '@supabase/supabase-js'
-import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseClient } from '@/lib/supabase/client'
 import type { User, UserRole, LoginCredentials, InviteUserData } from '@/types'
 
@@ -10,7 +10,7 @@ import type { User, UserRole, LoginCredentials, InviteUserData } from '@/types'
  */
 export async function getCurrentUser(): Promise<User | null> {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = createServerClient()
     const {
       data: { user },
       error,
@@ -157,7 +157,7 @@ export async function inviteUser(
   invitedBy: string
 ) {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = createServerClient()
 
     // Check if inviter has permission
     const { data: inviterProfile } = await supabase

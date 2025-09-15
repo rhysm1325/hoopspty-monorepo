@@ -1,0 +1,21 @@
+{
+  "framework": "nextjs",
+  "functions": {
+    "src/app/api/aircall/sync/route.ts": {
+      "maxDuration": 300
+    },
+    "src/app/api/activecampaign/sync/route.ts": {
+      "maxDuration": 300
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/aircall/sync",
+      "schedule": "*/15 9-18 * * 1-5"
+    },
+    {
+      "path": "/api/activecampaign/sync",
+      "schedule": "0 */6 * * *"
+    }
+  ]
+}
