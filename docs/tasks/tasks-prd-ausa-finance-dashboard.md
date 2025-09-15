@@ -78,10 +78,14 @@
 - `components/settings/revenue-mapping.tsx` - Revenue stream mapping form
 - `components/settings/account-mapping.tsx` - Account code mapping form
 - `components/settings/gst-settings.tsx` - GST method configuration form
+- `components/settings/sync-schedule.tsx` - Sync schedule configuration with timezone settings
+- `components/settings/config-backup.tsx` - Configuration backup and restore functionality
+- `app/(dashboard)/settings/page.tsx` - Main settings page with tabbed interface
+- `components/ui/tabs.tsx` - Reusable tabs component for settings navigation
 
 ### Server Actions
 - `app/actions/sync-actions.ts` - Server actions for data synchronization
-- `app/actions/config-actions.ts` - Server actions for configuration management
+- `app/actions/config/config-actions.ts` - Server actions for configuration management and backup/restore
 - `app/actions/dashboard-actions.ts` - Server actions for dashboard data fetching
 - `app/actions/export-actions.ts` - Server actions for CSV export functionality
 
@@ -157,16 +161,16 @@
   - [x] 5.8 Implement data caching strategy between syncs
   - [x] 5.9 Add data quality monitoring and variance detection
 
-- [ ] 6.0 Configuration Management System
+- [x] 6.0 Configuration Management System
   - [x] 6.1 Create Settings page layout with role-based access controls
   - [x] 6.2 Build revenue stream mapping interface for account codes
   - [x] 6.3 Implement item code mapping for Dr Dish product categorization
   - [x] 6.4 Create COGS account selection for gross margin calculations
   - [x] 6.5 Add GST method configuration (Accrual vs Cash reporting)
   - [x] 6.6 Implement deferred revenue rules configuration for Tours
-  - [ ] 6.7 Create sync schedule configuration and timezone settings
+  - [x] 6.7 Create sync schedule configuration and timezone settings
   - [x] 6.8 Build configuration validation and testing utilities
-  - [ ] 6.9 Add configuration backup and restore functionality
+  - [x] 6.9 Add configuration backup and restore functionality
 
 - [ ] 7.0 Executive Dashboard Implementation
   - [ ] 7.1 Create executive dashboard layout with responsive grid system
