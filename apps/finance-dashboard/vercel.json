@@ -1,0 +1,17 @@
+{
+  "buildCommand": "cd ../.. && npm run build:finance",
+  "outputDirectory": "apps/finance-dashboard/.next",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "functions": {
+    "apps/finance-dashboard/src/app/api/cron/daily-sync/route.ts": {
+      "maxDuration": 300
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/daily-sync",
+      "schedule": "30 3 * * *"
+    }
+  ]
+}

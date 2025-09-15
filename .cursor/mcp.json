@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "xero": {
+      "command": "npx",
+      "args": ["-y", "@xeroapi/xero-mcp-server@latest"],
+      "env": {
+        "XERO_CLIENT_ID": "27FB7C680A014D8DB561A93C785BF232",
+        "XERO_CLIENT_SECRET": "U4dKuE8ojlhaKGiLij_4QL22wGCCZHZ9C5USAje5EqIGc93u"
+      }
+    },
+    "supabase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--read-only",
+        "--project-ref=adlodyjgddkllgltaepv"
+      ],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "sbp_ac3106397d2748bbd358f9732aa26dd1817f3588"
+      }
+    }
+  }
+}

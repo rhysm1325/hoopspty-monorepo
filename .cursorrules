@@ -1,0 +1,58 @@
+# Cursor Rules for HoopsPty Monorepo
+
+## Project Structure
+
+This is a monorepo containing multiple HoopsPty business applications:
+
+- `apps/finance-dashboard/` - AUSA Finance Dashboard (Xero integration)
+- `apps/website/` - Public marketing website (planned)
+- `apps/admin-portal/` - Business admin portal (planned)
+- `apps/tours-booking/` - Customer booking system (planned)
+
+## Shared Packages
+
+- `packages/shared-ui/` - Reusable UI components
+- `packages/shared-types/` - TypeScript type definitions
+- `packages/shared-auth/` - Authentication utilities
+- `packages/shared-utils/` - Utility functions
+- `packages/xero-integration/` - Xero API integration
+
+## Development Guidelines
+
+### Monorepo Rules
+- Use shared packages instead of duplicating code
+- Keep app-specific logic in the respective app folder
+- Extract reusable components to `packages/shared-ui/`
+- Extract common types to `packages/shared-types/`
+
+### Testing Rules
+- Maintain high test coverage for shared packages (95%+)
+- Test shared components thoroughly as they're used across apps
+- Run tests at both app and package level
+
+### Import Guidelines
+- Import shared packages using `@hoops-pty/package-name`
+- Prefer importing from shared packages over duplicating code
+- Keep internal app imports using relative paths
+
+### Git Workflow
+- Prefix commits with app name when app-specific: `finance: add new dashboard`
+- Use `shared:` prefix for shared package changes: `shared: update auth utilities`
+- Use `monorepo:` prefix for structure changes: `monorepo: add new app scaffold`
+
+## Deployment
+
+Each app deploys independently to Vercel:
+- Finance Dashboard → `apps/finance-dashboard/` root directory
+- Website → `apps/website/` root directory (when created)
+- Admin Portal → `apps/admin-portal/` root directory (when created)
+
+## Quality Standards
+
+All apps must pass:
+- TypeScript compilation with no errors
+- ESLint with no errors
+- All tests passing
+- 95%+ coverage for financial calculations and shared utilities
+
+Run `npm run quality` at root to check all apps and packages.

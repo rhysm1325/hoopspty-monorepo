@@ -1,0 +1,38 @@
+{
+  "name": "hoops-pty-monorepo",
+  "version": "1.0.0",
+  "description": "HoopsPty business applications monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/finance-dashboard",
+    "dev:finance": "npm run dev --workspace=apps/finance-dashboard",
+    "dev:website": "npm run dev --workspace=apps/website",
+    "dev:admin": "npm run dev --workspace=apps/admin-portal",
+    "build": "npm run build --workspaces",
+    "build:finance": "npm run build --workspace=apps/finance-dashboard",
+    "build:website": "npm run build --workspace=apps/website",
+    "build:admin": "npm run build --workspace=apps/admin-portal",
+    "test": "npm run test --workspaces",
+    "test:finance": "npm run test --workspace=apps/finance-dashboard",
+    "lint": "npm run lint --workspaces",
+    "lint:fix": "npm run lint:fix --workspaces",
+    "type-check": "npm run type-check --workspaces",
+    "quality": "npm run quality --workspaces",
+    "quality:fix": "npm run quality:fix --workspaces",
+    "clean": "rm -rf node_modules && npm run clean --workspaces",
+    "setup": "npm install && npm run setup --workspaces"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.13",
+    "typescript": "^5",
+    "prettier": "^3.6.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

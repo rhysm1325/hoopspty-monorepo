@@ -1,0 +1,14 @@
+{
+  "name": "@hoops-pty/shared-types",
+  "version": "1.0.0",
+  "description": "Shared TypeScript types for HoopsPty applications",
+  "main": "index.ts",
+  "types": "index.ts",
+  "private": true,
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}
