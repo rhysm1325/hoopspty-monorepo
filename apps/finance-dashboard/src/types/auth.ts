@@ -126,13 +126,13 @@ export const ROLE_INFO: Record<UserRole, RoleInfo> = {
     label: 'Owner',
     description: 'Full access to all financial data and system settings',
     color: 'purple',
-    defaultDashboard: '/',
+    defaultDashboard: '/dashboard',
   },
   finance: {
     label: 'Finance',
     description: 'Complete financial data access and sync management',
     color: 'blue',
-    defaultDashboard: '/',
+    defaultDashboard: '/dashboard',
   },
   operations: {
     label: 'Operations',

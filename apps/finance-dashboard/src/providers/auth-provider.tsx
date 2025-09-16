@@ -151,7 +151,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             router.push(defaultDashboard)
           } catch (error) {
             console.warn('Error getting default dashboard:', error)
-            router.push('/')
+            router.push('/dashboard')
           }
         }
       } catch (error) {

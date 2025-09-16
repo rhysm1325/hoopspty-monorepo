@@ -135,7 +135,7 @@ export function getAllowedDashboards(
   const dashboards: Array<{ path: string; label: string }> = []
 
   if (permissions.canViewExecutiveDashboard) {
-    dashboards.push({ path: '/', label: 'Executive Dashboard' })
+    dashboards.push({ path: '/dashboard', label: 'Executive Dashboard' })
   }
 
   if (permissions.canViewToursDashboard) {
