@@ -20,13 +20,22 @@ export async function getCurrentUserClient(): Promise<User | null> {
     }
 
     // Get user profile with role information
+    console.log('Fetching profile for user:', user.id)
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', user.id)
       .single()
 
-    if (profileError || !profile) {
+    console.log('Profile query result:', { profile, profileError })
+
+    if (profileError) {
+      console.error('Profile fetch error:', profileError)
+      return null
+    }
+    
+    if (!profile) {
+      console.warn('No profile found for user:', user.id)
       return null
     }
 
