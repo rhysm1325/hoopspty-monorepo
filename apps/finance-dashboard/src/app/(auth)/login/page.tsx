@@ -81,11 +81,16 @@ function LoginForm() {
     }
 
     try {
+      console.log('Attempting login with:', { email, redirectTo })
       const result = await signInWithPassword({ email, password })
+      
+      console.log('Login result:', { success: result.success, error: result.error })
 
       if (!result.success) {
         // Provide more specific error messages
         let errorMessage = result.error || 'Login failed'
+        
+        console.log('Login failed with error:', errorMessage)
         
         if (errorMessage.includes('Invalid login credentials')) {
           errorMessage = 'Invalid email or password. Please check your credentials and try again.'
@@ -102,11 +107,13 @@ function LoginForm() {
         return
       }
 
-      console.log('Login successful, redirecting to:', redirectTo)
+      console.log('Login successful! Auth provider will handle redirect.')
       
-      // Redirect to intended page or dashboard
-      router.push(redirectTo)
-      router.refresh()
+      // Let the auth provider handle the redirect automatically
+      // The auth provider will detect the authentication state change
+      // and redirect to the appropriate dashboard based on user role
+      setIsLoading(false)
+      
     } catch (err) {
       console.error('Login error:', err)
       setError(

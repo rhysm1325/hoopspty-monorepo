@@ -64,13 +64,8 @@ export async function signInWithPassword(credentials: LoginCredentials) {
       return { success: false, error: error.message, user: null }
     }
 
-    // Update last login timestamp
-    if (data.user) {
-      await supabase
-        .from('profiles')
-        .update({ last_login_at: new Date().toISOString() })
-        .eq('id', data.user.id)
-    }
+    // Note: last_login_at timestamp will be updated by the auth provider
+    // after the user profile is loaded with proper permissions
 
     return { success: true, error: null, user: data.user }
   } catch (error) {
