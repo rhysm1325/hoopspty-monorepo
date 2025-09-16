@@ -52,7 +52,29 @@ export function AuthProvider({ children }: AuthProviderProps) {
     
     try {
       setIsLoading(true)
-      const userData = await getCurrentUserClient()
+      
+      // Get basic auth session without triggering RLS issues
+      const { data: { session }, error } = await supabase.auth.getSession()
+      
+      if (error || !session?.user) {
+        setUser(null)
+        setIsLoading(false)
+        return
+      }
+      
+      // Create basic user object from auth session
+      const userData: User = {
+        id: session.user.id,
+        email: session.user.email || '',
+        firstName: session.user.user_metadata?.first_name || null,
+        lastName: session.user.user_metadata?.last_name || null,
+        role: session.user.user_metadata?.role || 'owner',
+        isActive: true,
+        createdAt: new Date(session.user.created_at || new Date()),
+        updatedAt: new Date(session.user.updated_at || new Date()),
+      }
+      
+      console.log('Auth provider loaded user:', userData)
       setUser(userData)
     } catch (error) {
       console.error('Error refreshing user:', error)
