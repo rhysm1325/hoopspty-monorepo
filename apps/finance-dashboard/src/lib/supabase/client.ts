@@ -40,6 +40,14 @@ export function createClient() {
   }
   
   console.log('Supabase client connecting to:', url)
+  console.log('Environment check:', {
+    hasUrl: !!url,
+    hasAnonKey: !!anonKey,
+    urlValue: url,
+    anonKeyPrefix: anonKey?.substring(0, 20) + '...',
+    isBuildTime,
+    nodeEnv: process.env.NODE_ENV
+  })
   
   return createBrowserClient(url, anonKey)
 }

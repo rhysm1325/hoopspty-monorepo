@@ -33,18 +33,30 @@ function LoginForm() {
   useEffect(() => {
     const testConnection = async () => {
       try {
+        console.log('Testing Supabase connection...')
         const supabase = getSupabaseClient()
+        
+        // Test basic connection
         const { data, error } = await supabase.from('profiles').select('count').limit(1)
+        
+        console.log('Supabase connection test result:', { data, error })
         
         if (error) {
           console.error('Supabase connection test failed:', error)
+          console.error('Error details:', {
+            message: error.message,
+            code: error.code,
+            details: error.details,
+            hint: error.hint
+          })
           setConnectionStatus('error')
         } else {
-          console.log('Supabase connection test passed')
+          console.log('Supabase connection test passed successfully')
           setConnectionStatus('connected')
         }
       } catch (err) {
         console.error('Supabase connection error:', err)
+        console.error('Error type:', typeof err, err)
         setConnectionStatus('error')
       }
     }
