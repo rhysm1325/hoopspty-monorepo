@@ -13,7 +13,7 @@ export const env = getValidatedEnv()
 
 // Validate environment on module load (server-side only)
 // Skip validation during build process (VERCEL_ENV exists during builds)
-if (typeof window === 'undefined' && !process.env.VERCEL_ENV && !process.env.CI && process.env.NODE_ENV !== 'production') {
+if (typeof window === 'undefined' && !process.env.VERCEL_ENV && !process.env.CI && !process.env.NEXT_PHASE && process.env.NODE_ENV !== 'production') {
   try {
     const result = validateEnvForStage(env.NODE_ENV)
 

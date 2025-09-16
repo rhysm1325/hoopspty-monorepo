@@ -297,25 +297,45 @@ export function absoluteMoney(money: Money): Money {
  * Format a date in Australian format
  */
 export function formatAustralianDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-AU', {
-    timeZone: TIMEZONE,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).format(date)
+  try {
+    // Validate date
+    if (!date || isNaN(date.getTime())) {
+      return new Date().toLocaleDateString('en-AU')
+    }
+    
+    return new Intl.DateTimeFormat('en-AU', {
+      timeZone: TIMEZONE,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(date)
+  } catch (error) {
+    // Fallback for build-time issues
+    return date.toLocaleDateString('en-AU')
+  }
 }
 
 /**
  * Format a date and time in Australian format
  */
 export function formatAustralianDateTime(date: Date): string {
-  return new Intl.DateTimeFormat('en-AU', {
-    timeZone: TIMEZONE,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).format(date)
+  try {
+    // Validate date
+    if (!date || isNaN(date.getTime())) {
+      return new Date().toLocaleString('en-AU')
+    }
+    
+    return new Intl.DateTimeFormat('en-AU', {
+      timeZone: TIMEZONE,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).format(date)
+  } catch (error) {
+    // Fallback for build-time issues
+    return date.toLocaleString('en-AU')
+  }
 }

@@ -1,5 +1,8 @@
 'use client'
 
+// Force dynamic rendering to prevent static generation issues
+export const dynamic = 'force-dynamic'
+
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/hooks/useAuth'
 import { getCurrentFinancialYear } from '@/lib/utils/dates'
@@ -107,7 +110,23 @@ export default function ExecutiveDashboard() {
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date())
   const [autoRefresh, setAutoRefresh] = useState(true)
 
-  const currentFY = getCurrentFinancialYear()
+  const [currentFY, setCurrentFY] = useState<ReturnType<typeof getCurrentFinancialYear> | null>(null)
+  
+  // Initialize current FY safely on client side
+  useEffect(() => {
+    try {
+      setCurrentFY(getCurrentFinancialYear())
+    } catch (error) {
+      console.warn('Error getting current financial year:', error)
+      // Fallback FY
+      setCurrentFY({
+        year: 2024,
+        startDate: new Date('2024-07-01'),
+        endDate: new Date('2025-06-30'),
+        label: 'FY 2024-25'
+      })
+    }
+  }, [])
 
   // Sample data - in real implementation, this would come from server actions
   useEffect(() => {
@@ -337,7 +356,7 @@ export default function ExecutiveDashboard() {
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Executive Dashboard</h1>
           <p className="text-gray-600">
-            Real-time financial insights for {currentFY.label}
+            Real-time financial insights for {currentFY?.label || 'FY 2024-25'}
           </p>
         </div>
         
@@ -349,7 +368,7 @@ export default function ExecutiveDashboard() {
           />
           <Badge variant="outline" className="flex items-center gap-1">
             <Calendar className="h-3 w-3" />
-            {currentFY.label} • Week {Math.ceil((new Date().getTime() - currentFY.startDate.getTime()) / (7 * 24 * 60 * 60 * 1000))}
+            {currentFY?.label || 'FY 2024-25'} • Week {currentFY ? Math.ceil((new Date().getTime() - currentFY.startDate.getTime()) / (7 * 24 * 60 * 60 * 1000)) : 12}
           </Badge>
           <Button
             variant="outline"

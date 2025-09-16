@@ -12,7 +12,7 @@ import type { FinancialYear } from '@/types/financial'
  * Get the current date in Australia/Sydney timezone
  */
 export function getCurrentAustralianDate(): Date {
-  return new Date(new Intl.DateTimeFormat('en-AU', {
+  const formatted = new Intl.DateTimeFormat('en-AU', {
     timeZone: TIMEZONE,
     year: 'numeric',
     month: '2-digit',
@@ -20,7 +20,11 @@ export function getCurrentAustralianDate(): Date {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
-  }).format(new Date()).replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$3-$2-$1T$4:$5:$6'))
+  }).format(new Date())
+  
+  // Parse the formatted string back to a Date object
+  const isoString = formatted.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$3-$2-$1T$4:$5:$6')
+  return new Date(isoString)
 }
 
 /**
@@ -313,27 +317,47 @@ export function getStartOfFinancialYear(fyYear: number): Date {
  * Format a date for Australian display (DD/MM/YYYY)
  */
 export function formatAustralianDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-AU', {
-    timeZone: TIMEZONE,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).format(date)
+  try {
+    // Validate date
+    if (!date || isNaN(date.getTime())) {
+      return new Date().toLocaleDateString('en-AU')
+    }
+    
+    return new Intl.DateTimeFormat('en-AU', {
+      timeZone: TIMEZONE,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(date)
+  } catch (error) {
+    // Fallback for build-time issues
+    return date.toLocaleDateString('en-AU')
+  }
 }
 
 /**
  * Format a date and time for Australian display (DD/MM/YYYY HH:MM)
  */
 export function formatAustralianDateTime(date: Date): string {
-  return new Intl.DateTimeFormat('en-AU', {
-    timeZone: TIMEZONE,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).format(date)
+  try {
+    // Validate date
+    if (!date || isNaN(date.getTime())) {
+      return new Date().toLocaleString('en-AU')
+    }
+    
+    return new Intl.DateTimeFormat('en-AU', {
+      timeZone: TIMEZONE,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).format(date)
+  } catch (error) {
+    // Fallback for build-time issues
+    return date.toLocaleString('en-AU')
+  }
 }
 
 /**

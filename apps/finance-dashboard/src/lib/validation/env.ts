@@ -263,7 +263,7 @@ let validatedEnv: ValidatedEnv | null = null
 export function getValidatedEnv(): ValidatedEnv {
   if (!validatedEnv) {
     // Skip validation during build process to avoid deployment failures
-    if (process.env.VERCEL_ENV || process.env.CI) {
+    if (process.env.VERCEL_ENV || process.env.CI || process.env.NEXT_PHASE) {
       // Return default values for build
       validatedEnv = {
         NODE_ENV: 'production',

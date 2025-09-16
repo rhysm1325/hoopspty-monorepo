@@ -1,5 +1,8 @@
 'use client'
 
+// Force dynamic rendering to prevent static generation issues
+export const dynamic = 'force-dynamic'
+
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/hooks/useAuth'
 import { getCurrentFinancialYear } from '@/lib/utils/dates'
@@ -11,8 +14,9 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { RevenueComparisonChart } from '@/components/charts/revenue-comparison-chart'
-import { ToursDeferredRevenue } from '@/components/dashboard/tours-deferred-revenue'
-import { ToursARTable } from '@/components/dashboard/tours-ar-table'
+// TODO: Re-implement tours-specific components
+// import { ToursDeferredRevenue } from '@/components/dashboard/tours-deferred-revenue'
+// import { ToursARTable } from '@/components/dashboard/tours-ar-table'
 import { 
   Plane, 
   Calendar, 
@@ -120,7 +124,22 @@ export default function ToursDashboard() {
   const [selectedTourType, setSelectedTourType] = useState<string>('all')
   const [seasonFilter, setSeasonFilter] = useState<'current' | 'prior' | 'both'>('current')
 
-  const currentFY = getCurrentFinancialYear()
+  const [currentFY, setCurrentFY] = useState<ReturnType<typeof getCurrentFinancialYear> | null>(null)
+  
+  // Initialize current FY safely on client side
+  useEffect(() => {
+    try {
+      setCurrentFY(getCurrentFinancialYear())
+    } catch (error) {
+      console.warn('Error getting current financial year:', error)
+      setCurrentFY({
+        year: 2024,
+        startDate: new Date('2024-07-01'),
+        endDate: new Date('2025-06-30'),
+        label: 'FY 2024-25'
+      })
+    }
+  }, [])
 
   // Load Tours dashboard data
   useEffect(() => {
@@ -347,7 +366,7 @@ export default function ToursDashboard() {
   const getSeasonalInsight = () => {
     if (!toursData) return null
     
-    const currentWeek = Math.ceil((new Date().getTime() - currentFY.startDate.getTime()) / (7 * 24 * 60 * 60 * 1000))
+    const currentWeek = currentFY ? Math.ceil((new Date().getTime() - currentFY.startDate.getTime()) / (7 * 24 * 60 * 60 * 1000)) : 12
     const isPeakSeason = toursData.seasonalTrends.peakWeeks.includes(currentWeek)
     const isLowSeason = toursData.seasonalTrends.lowWeeks.includes(currentWeek)
     
@@ -424,7 +443,7 @@ export default function ToursDashboard() {
             Tours Dashboard
           </h1>
           <p className="text-gray-600">
-            Seasonal revenue analysis and tour booking performance for {currentFY.label}
+            Seasonal revenue analysis and tour booking performance for {currentFY?.label || 'FY 2024-25'}
           </p>
         </div>
         
@@ -448,7 +467,7 @@ export default function ToursDashboard() {
           
           <Badge variant="outline" className="flex items-center gap-1">
             <Calendar className="h-3 w-3" />
-            {currentFY.label} • Week {Math.ceil((new Date().getTime() - currentFY.startDate.getTime()) / (7 * 24 * 60 * 60 * 1000))}
+            {currentFY?.label || 'FY 2024-25'} • Week {currentFY ? Math.ceil((new Date().getTime() - currentFY.startDate.getTime()) / (7 * 24 * 60 * 60 * 1000)) : 12}
           </Badge>
           
           <Button
@@ -704,11 +723,27 @@ export default function ToursDashboard() {
         </Card>
       </div>
 
-      {/* Deferred Revenue Tracking */}
-      <ToursDeferredRevenue showDetails={true} />
+      {/* Deferred Revenue Tracking - TODO: Re-implement component */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Deferred Revenue Tracking</CardTitle>
+          <CardDescription>Tours deferred revenue tracking and recognition views</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-gray-500">Component temporarily unavailable - under development</p>
+        </CardContent>
+      </Card>
 
-      {/* Tours AR Table with Customer Contact Integration */}
-      <ToursARTable showContactActions={true} />
+      {/* Tours AR Table - TODO: Re-implement component */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Tours Customer AR</CardTitle>
+          <CardDescription>Tours AR table with customer contact integration</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-gray-500">Component temporarily unavailable - under development</p>
+        </CardContent>
+      </Card>
 
       {/* Quick Actions and Status */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">

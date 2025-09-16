@@ -1,5 +1,8 @@
 'use client'
 
+// Force dynamic rendering to prevent static generation issues
+export const dynamic = 'force-dynamic'
+
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/hooks/useAuth'
 import { getCurrentFinancialYear } from '@/lib/utils/dates'
@@ -113,7 +116,22 @@ export default function DrDishDashboard() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [viewMode, setViewMode] = useState<'inventory' | 'sales' | 'both'>('both')
 
-  const currentFY = getCurrentFinancialYear()
+  const [currentFY, setCurrentFY] = useState<ReturnType<typeof getCurrentFinancialYear> | null>(null)
+  
+  // Initialize current FY safely on client side
+  useEffect(() => {
+    try {
+      setCurrentFY(getCurrentFinancialYear())
+    } catch (error) {
+      console.warn('Error getting current financial year:', error)
+      setCurrentFY({
+        year: 2024,
+        startDate: new Date('2024-07-01'),
+        endDate: new Date('2025-06-30'),
+        label: 'FY 2024-25'
+      })
+    }
+  }, [])
 
   // Load Dr Dish dashboard data
   useEffect(() => {
@@ -363,7 +381,7 @@ export default function DrDishDashboard() {
             Dr Dish Distribution Dashboard
           </h1>
           <p className="text-gray-600">
-            Basketball machine distribution, inventory management, and sales analysis for {currentFY.label}
+            Basketball machine distribution, inventory management, and sales analysis for {currentFY?.label || 'FY 2024-25'}
           </p>
         </div>
         
@@ -397,7 +415,7 @@ export default function DrDishDashboard() {
           
           <Badge variant="outline" className="flex items-center gap-1">
             <Calendar className="h-3 w-3" />
-            {currentFY.label} • Week {Math.ceil((new Date().getTime() - currentFY.startDate.getTime()) / (7 * 24 * 60 * 60 * 1000))}
+            {currentFY?.label || 'FY 2024-25'} • Week {currentFY ? Math.ceil((new Date().getTime() - currentFY.startDate.getTime()) / (7 * 24 * 60 * 60 * 1000)) : 12}
           </Badge>
           
           <Button

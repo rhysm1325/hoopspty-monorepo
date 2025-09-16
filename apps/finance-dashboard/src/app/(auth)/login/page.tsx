@@ -25,7 +25,7 @@ function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const redirectTo = searchParams.get('redirect') || '/dashboard'
+  const redirectTo = searchParams.get('redirect') || '/'
   const errorParam = searchParams.get('error')
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
