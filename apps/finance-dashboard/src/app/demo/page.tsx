@@ -8,7 +8,7 @@ import { DatePicker } from '@/components/ui/date-picker'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
-export default function DemoPage() {
+export default function Home() {
   const [selectedDate, setSelectedDate] = useState<Date>()
 
   // Sample data for the data table
@@ -81,26 +81,6 @@ export default function DemoPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Demo Banner */}
-        <div className="mb-6 rounded-lg bg-blue-50 border border-blue-200 p-4">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center">
-                <span className="text-white text-sm font-bold">🎨</span>
-              </div>
-            </div>
-            <div className="ml-3">
-              <h3 className="text-sm font-medium text-blue-800">
-                Demo Mode - AUSA Finance Dashboard
-              </h3>
-              <p className="mt-1 text-sm text-blue-700">
-                This is a demonstration of the fully functional dashboard interface. 
-                All data shown is sample data for demonstration purposes.
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Header */}
         <div className="mb-8">
           <h1 className="mb-2 text-3xl font-bold text-gray-900">
@@ -117,9 +97,6 @@ export default function DemoPage() {
             />
             <Badge variant="outline" className="text-xs">
               FY 2024-25 • Week 12
-            </Badge>
-            <Badge variant="secondary" className="text-xs">
-              Demo Mode
             </Badge>
           </div>
         </div>
@@ -280,15 +257,11 @@ export default function DemoPage() {
         {/* Status */}
         <div className="mt-8 rounded-lg border bg-white p-6 text-center">
           <p className="mb-2 text-sm text-gray-600">
-            ✅ Next.js 15 + TypeScript + Tailwind CSS + shadcn/ui
+            ✅ Next.js 14 + TypeScript + Tailwind CSS + shadcn/ui
           </p>
           <p className="text-sm text-gray-600">
             🎨 Australian business theme with financial-specific components
             ready for dashboard implementation
-          </p>
-          <p className="mt-4 text-xs text-gray-500">
-            This is a demonstration version. To access the full application with authentication,
-            configure the Supabase backend and user accounts.
           </p>
         </div>
       </div>
