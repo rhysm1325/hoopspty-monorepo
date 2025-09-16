@@ -36,8 +36,8 @@ function LoginForm() {
         console.log('Testing Supabase connection...')
         const supabase = getSupabaseClient()
         
-        // Test basic connection
-        const { data, error } = await supabase.from('profiles').select('count').limit(1)
+        // Test basic connection using auth service (doesn't require RLS)
+        const { data, error } = await supabase.auth.getSession()
         
         console.log('Supabase connection test result:', { data, error })
         
