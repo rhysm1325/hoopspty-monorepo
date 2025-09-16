@@ -113,6 +113,42 @@ export function validatePassword(password: string) {
 }
 
 /**
+ * Get current session (client-side)
+ */
+export async function getSession() {
+  try {
+    const supabase = getSupabaseClient()
+    const { data, error } = await supabase.auth.getSession()
+    
+    if (error) {
+      return { session: null, error: error.message }
+    }
+    
+    return { session: data.session, error: null }
+  } catch (error) {
+    return { session: null, error: error instanceof Error ? error.message : 'Session error' }
+  }
+}
+
+/**
+ * Sign out user (client-side)
+ */
+export async function signOut() {
+  try {
+    const supabase = getSupabaseClient()
+    const { error } = await supabase.auth.signOut()
+    
+    if (error) {
+      return { success: false, error: error.message }
+    }
+    
+    return { success: true, error: null }
+  } catch (error) {
+    return { success: false, error: error instanceof Error ? error.message : 'Sign out failed' }
+  }
+}
+
+/**
  * Complete user signup with invitation token (client-side)
  */
 export async function completeSignup(token: string, password: string) {

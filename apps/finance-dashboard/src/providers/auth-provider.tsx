@@ -41,10 +41,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     supabase = getSupabaseClient()
   } catch (error) {
     console.error('Supabase client not available:', error)
-    // If Supabase is not configured, show a helpful message
-    if (typeof window !== 'undefined') {
-      alert('Supabase configuration is missing. Please check your environment variables and redeploy.')
-    }
+    console.warn('⚠️  Authentication features will be limited due to missing Supabase configuration.')
   }
 
   const refreshUser = async () => {

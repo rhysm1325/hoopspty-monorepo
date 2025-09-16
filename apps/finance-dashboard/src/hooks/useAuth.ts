@@ -5,7 +5,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { getSupabaseClient } from '@/lib/supabase/client'
-import { getSession, signOut } from '@/lib/auth/auth'
+import { getSession, signOut } from '@/lib/auth/auth-client'
 import { getRolePermissions, getDefaultDashboard } from '@/lib/auth/roles'
 import type { User, UserRole, RolePermissions } from '@/types'
 

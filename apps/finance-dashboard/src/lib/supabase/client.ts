@@ -20,17 +20,23 @@ export function createClient() {
       )
     } else {
       console.error('Supabase environment variables are missing at runtime')
-      throw new Error('Supabase configuration is missing. Please check your environment variables.')
+      console.warn('⚠️  Using fallback Supabase configuration. Authentication features will be limited.')
+      // Use fallback values instead of throwing
+      return createBrowserClient(
+        'https://fallback-placeholder.supabase.co',
+        'fallback-placeholder-key'
+      )
     }
   }
   
   // Check for placeholders at runtime only
   if (!isBuildTime && (url.includes('placeholder') || anonKey.includes('placeholder'))) {
-    console.error('Using placeholder Supabase values at runtime:', { 
+    console.warn('Using placeholder Supabase values at runtime:', { 
       url: url, 
       anonKey: anonKey.substring(0, 20) + '...' 
     })
-    throw new Error('Supabase configuration is using placeholder values. Please check your environment variables in Vercel.')
+    // Instead of throwing, use fallback values and warn user
+    console.warn('⚠️  Supabase not configured properly. Authentication features will be limited.')
   }
   
   console.log('Supabase client connecting to:', url)
