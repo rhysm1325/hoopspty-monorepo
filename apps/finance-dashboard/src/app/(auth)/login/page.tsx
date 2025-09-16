@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, Suspense } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 
 // Force dynamic rendering to prevent build-time issues
 export const dynamic = 'force-dynamic'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { signInWithPassword } from '@/lib/auth/auth-client'
+import { getSupabaseClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -24,8 +25,32 @@ function LoginForm() {
   const searchParams = useSearchParams()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [connectionStatus, setConnectionStatus] = useState<'checking' | 'connected' | 'error'>('checking')
 
   const redirectTo = searchParams.get('redirect') || '/'
+  
+  // Test Supabase connection on component mount
+  useEffect(() => {
+    const testConnection = async () => {
+      try {
+        const supabase = getSupabaseClient()
+        const { data, error } = await supabase.from('profiles').select('count').limit(1)
+        
+        if (error) {
+          console.error('Supabase connection test failed:', error)
+          setConnectionStatus('error')
+        } else {
+          console.log('Supabase connection test passed')
+          setConnectionStatus('connected')
+        }
+      } catch (err) {
+        console.error('Supabase connection error:', err)
+        setConnectionStatus('error')
+      }
+    }
+    
+    testConnection()
+  }, [])
   const errorParam = searchParams.get('error')
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -47,15 +72,31 @@ function LoginForm() {
       const result = await signInWithPassword({ email, password })
 
       if (!result.success) {
-        setError(result.error || 'Login failed')
+        // Provide more specific error messages
+        let errorMessage = result.error || 'Login failed'
+        
+        if (errorMessage.includes('Invalid login credentials')) {
+          errorMessage = 'Invalid email or password. Please check your credentials and try again.'
+        } else if (errorMessage.includes('Email not confirmed')) {
+          errorMessage = 'Please check your email and click the confirmation link before signing in.'
+        } else if (errorMessage.includes('Too many requests')) {
+          errorMessage = 'Too many login attempts. Please wait a few minutes and try again.'
+        } else if (errorMessage.includes('User not found')) {
+          errorMessage = 'No account found with this email. Please contact your administrator for an invitation.'
+        }
+        
+        setError(errorMessage)
         setIsLoading(false)
         return
       }
 
+      console.log('Login successful, redirecting to:', redirectTo)
+      
       // Redirect to intended page or dashboard
       router.push(redirectTo)
       router.refresh()
     } catch (err) {
+      console.error('Login error:', err)
       setError(
         err instanceof Error ? err.message : 'An unexpected error occurred'
       )
@@ -174,6 +215,19 @@ function LoginForm() {
                 )}
               </Button>
             </form>
+
+            {/* Connection Status */}
+            <div className="mt-4 text-center">
+              {connectionStatus === 'checking' && (
+                <p className="text-xs text-gray-500">Checking database connection...</p>
+              )}
+              {connectionStatus === 'connected' && (
+                <p className="text-xs text-green-600">✅ Database connected</p>
+              )}
+              {connectionStatus === 'error' && (
+                <p className="text-xs text-red-600">❌ Database connection failed - Authentication may not work</p>
+              )}
+            </div>
 
             {/* Help Text */}
             <div className="mt-6 text-center">
